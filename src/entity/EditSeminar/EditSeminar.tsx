@@ -4,17 +4,20 @@ import { useEffect, useRef } from 'react'
 import { useUnit } from 'effector-react'
 import { $seminarToEdit, resetEditSeminar } from './state'
 import { editSeminarAction } from './api'
+import { useRouter } from 'next/navigation'
 
 export const EditSeminar = () => {
     const { title, description, photo, date, time, id } = useUnit($seminarToEdit) ?? {}
     const isOpen = id != null
 
     const ref = useRef<HTMLDialogElement>(null)
+    const { refresh } = useRouter()
 
     const reset = useUnit(resetEditSeminar)
     const close = () => {
         ref.current?.close()
         reset()
+        refresh()
     }
 
     const formRef = useRef<HTMLFormElement>(null)

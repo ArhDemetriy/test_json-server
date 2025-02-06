@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import { useUnit } from 'effector-react'
 import { $seminarToDelete, resetDeleteSeminar } from './state'
 import { deleteSeminarAction } from './api'
+import { useRouter } from 'next/navigation'
 
 export const DeleteSeminar = () => {
     const { id, title } = useUnit($seminarToDelete) ?? {}
@@ -11,10 +12,12 @@ export const DeleteSeminar = () => {
 
     const ref = useRef<HTMLDialogElement>(null)
 
+    const { refresh } = useRouter()
     const reset = useUnit(resetDeleteSeminar)
     const close = () => {
         ref.current?.close()
         reset()
+        refresh()
     }
 
     const open = () => ref.current?.showModal()
@@ -22,7 +25,6 @@ export const DeleteSeminar = () => {
     useEffect(() => {
         isOpen ? open() : close()
     }, [isOpen])
-
     const onDelete = () => {
         id && deleteSeminarAction(id)
         close()
