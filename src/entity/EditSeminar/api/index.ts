@@ -1,0 +1,1 @@
+export { editSeminarAction } from './editSeminarAction'

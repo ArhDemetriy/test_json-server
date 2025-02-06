@@ -1,6 +1,6 @@
 const SERVER_URL = 'http://localhost:4000'
 
-type IMethod = 'POST' | 'GET' | 'DELETE'
+type IMethod = 'POST' | 'GET' | 'DELETE' | 'EDIT'
 
 interface IFetchWith {
     method: IMethod
