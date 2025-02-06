@@ -1,0 +1,1 @@
+export { getSeminarsAction } from './getSeminars'
