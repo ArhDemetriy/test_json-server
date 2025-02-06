@@ -44,6 +44,7 @@ export const EditSeminar = () => {
         close()
     }
 
+    const renderItems = { title, description, photo, date, time }
     return (
         <dialog
             className={style.dialog}
@@ -55,40 +56,22 @@ export const EditSeminar = () => {
                 ref={formRef}
                 className={style.form}
             >
-                <label>
-                    title:{' '}
-                    <input
-                        type="text"
-                        name="title"
-                        defaultValue={title}
+                {Object.entries(renderItems).map(([title, value]) => (
+                    <EditInput
+                        title={title}
+                        value={value}
+                        key={title}
                     />
-                </label>
-                <label>
-                    description:{' '}
-                    <input
-                        type="text"
-                        name="description"
-                        defaultValue={description}
-                    />
-                </label>
-                <label>
-                    date:{' '}
-                    <input
-                        type="text"
-                        name="date"
-                        defaultValue={date}
-                    />
-                </label>
-                <label>
-                    time:{' '}
-                    <input
-                        type="text"
-                        name="time"
-                        defaultValue={time}
-                    />
-                </label>
+                ))}
             </form>
             <div className={style.buttons}>
+                <button
+                    className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+                    type="button"
+                    onClick={close}
+                >
+                    Cancel
+                </button>
                 <button
                     className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
                     id="Edit"
@@ -97,14 +80,22 @@ export const EditSeminar = () => {
                 >
                     Save
                 </button>
-                <button
-                    className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-                    type="button"
-                    onClick={close}
-                >
-                    Cancel
-                </button>
             </div>
         </dialog>
     )
 }
+
+interface IEditInput {
+    title?: string
+    value?: string
+}
+const EditInput = ({ title = '', value = '' }: IEditInput) => (
+    <label>
+        {title}:{' '}
+        <input
+            type="text"
+            name={title}
+            defaultValue={value}
+        />
+    </label>
+)
