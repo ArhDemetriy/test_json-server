@@ -4,5 +4,5 @@ interface IColumn {
     children: ReactElement[]
 }
 export const Column = ({ children }: IColumn) => {
-    return <div className="flex gap-4 items-center flex-col">{children}</div>
+    return <div className="flex gap-10 flex-col items-start">{children}</div>
 }
