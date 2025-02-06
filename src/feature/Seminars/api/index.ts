@@ -1,1 +1,1 @@
-export { getSeminarsAction } from './getSeminars'
+export { getSeminarsAction } from './getSeminarsAction'

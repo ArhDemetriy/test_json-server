@@ -1,0 +1,1 @@
+export { deleteSeminarAction } from './deleteSeminarAction'

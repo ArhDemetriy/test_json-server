@@ -1,0 +1,17 @@
+.content {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.image {
+    width: 70px;
+    height: 70px;
+    border-radius: 3px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
