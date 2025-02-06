@@ -1,6 +1,6 @@
 'use server'
 
-import { ISeminar } from '@/shared/type/Seminar'
 import { editSeminarMethod } from './editSeminarMethod'
 
-export const editSeminarAction = async (id: ISeminar['id']) => editSeminarMethod(id)
+export const editSeminarAction = async (body: Parameters<typeof editSeminarMethod>['0']) =>
+    editSeminarMethod(body)

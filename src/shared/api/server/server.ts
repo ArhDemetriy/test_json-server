@@ -1,6 +1,6 @@
 const SERVER_URL = 'http://localhost:4000'
 
-type IMethod = 'POST' | 'GET' | 'DELETE' | 'EDIT'
+type IMethod = 'POST' | 'GET' | 'DELETE' | 'PATCH'
 
 interface IFetchWith {
     method: IMethod
@@ -9,8 +9,9 @@ interface IFetchWith {
     path: string
 }
 
-export const fetchWith = async <T>({ method, body, forceInit, path }: IFetchWith) =>
-    fetch(
+export const fetchWith = async <T>({ method, body, forceInit, path }: IFetchWith) => {
+    console.log('fetchWith', body, path)
+    return fetch(
         SERVER_URL + path,
         Object.assign<RequestInit, RequestInit | undefined>(
             {
@@ -22,3 +23,4 @@ export const fetchWith = async <T>({ method, body, forceInit, path }: IFetchWith
     )
         .then(data => data.json() as T)
         .catch(() => null)
+}

@@ -3,6 +3,7 @@ import { getSeminarsAction } from './api'
 import { Seminar } from '@/entity/Seminar'
 import { Suspense } from 'react'
 import { DeleteSeminar } from '@/entity/DeleteSeminar'
+import { EditSeminar } from '@/entity/EditSeminar'
 
 export const Seminars = () => {
     return (
@@ -26,6 +27,7 @@ const SeminarsFetch = async () => {
                 ))}
             </Column>
             <DeleteSeminar />
+            <EditSeminar />
         </div>
     )
 }

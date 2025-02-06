@@ -2,8 +2,10 @@ import Image from 'next/image'
 import type { ISeminar } from '@/shared/type/Seminar'
 import style from './Seminar.module.scss'
 import { DeleteButton } from './DeleteButton'
+import { EditButton } from './EditButton'
 
-export const Seminar = ({ title, description, photo, date, time, id }: ISeminar) => {
+export const Seminar = (props: ISeminar) => {
+    const { title, description, photo, date, time, id } = props
     return (
         <div className="flex gap-4 flex-col">
             <h6>{title}</h6>
@@ -28,6 +30,7 @@ export const Seminar = ({ title, description, photo, date, time, id }: ISeminar)
                     id={id}
                     title={title}
                 />
+                <EditButton {...props} />
             </div>
         </div>
     )

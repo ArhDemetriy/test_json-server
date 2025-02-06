@@ -6,7 +6,7 @@ import { $seminarToEdit, resetEditSeminar } from './state'
 import { editSeminarAction } from './api'
 
 export const EditSeminar = () => {
-    const { id, title } = useUnit($seminarToEdit) ?? {}
+    const { title, description, photo, date, time, id } = useUnit($seminarToEdit) ?? {}
     const isOpen = id != null
 
     const ref = useRef<HTMLDialogElement>(null)
@@ -17,14 +17,30 @@ export const EditSeminar = () => {
         reset()
     }
 
-    const open = () => ref.current?.showModal()
+    const formRef = useRef<HTMLFormElement>(null)
+    const open = () => {
+        formRef.current?.reset()
+        ref.current?.showModal()
+    }
 
     useEffect(() => {
         isOpen ? open() : close()
     }, [isOpen])
 
-    const onEdit = () => {
-        id && editSeminarAction(id)
+    const save = () => {
+        if (!formRef.current || id == null) return close()
+
+        const data = Object.assign(
+            Object.fromEntries(
+                Array.from(new FormData(formRef.current).entries()).map(([key, value]) => [
+                    key,
+                    value.toString(),
+                ]),
+            ),
+            { id },
+        )
+
+        editSeminarAction(data)
         close()
     }
 
@@ -33,15 +49,53 @@ export const EditSeminar = () => {
             className={style.dialog}
             ref={ref}
         >
-            <p>{`Удалить семинар "${title}"?`}</p>
-            <div className="flex">
+            <p>{`Изменение семинара "${title}"?`}</p>
+
+            <form
+                ref={formRef}
+                className={style.form}
+            >
+                <label>
+                    title:{' '}
+                    <input
+                        type="text"
+                        name="title"
+                        defaultValue={title}
+                    />
+                </label>
+                <label>
+                    description:{' '}
+                    <input
+                        type="text"
+                        name="description"
+                        defaultValue={description}
+                    />
+                </label>
+                <label>
+                    date:{' '}
+                    <input
+                        type="text"
+                        name="date"
+                        defaultValue={date}
+                    />
+                </label>
+                <label>
+                    time:{' '}
+                    <input
+                        type="text"
+                        name="time"
+                        defaultValue={time}
+                    />
+                </label>
+            </form>
+            <div className={style.buttons}>
                 <button
                     className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
                     id="Edit"
                     type="button"
-                    onClick={onEdit}
+                    onClick={save}
                 >
-                    Edit
+                    Save
                 </button>
                 <button
                     className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
