@@ -45,6 +45,8 @@ export const EditSeminar = () => {
     }
 
     const renderItems = { title, description, photo, date, time }
+
+    if (!isOpen) return null
     return (
         <dialog
             className={style.dialog}
